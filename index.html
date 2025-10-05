@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Минималистичный альбом</title>
+<title>Минималистичный альбом с фигурами</title>
 <style>
   body {
     margin: 0;
@@ -14,13 +14,37 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
+    overflow: hidden;
+    position: relative;
   }
 
+  /* Геометрические декоративные элементы */
+  .shape {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.1);
+    z-index: 0;
+  }
+
+  .shape.square {
+    width: 100px;
+    height: 100px;
+  }
+
+  .shape.triangle {
+    width: 0;
+    height: 0;
+    border-left: 60px solid transparent;
+    border-right: 60px solid transparent;
+    border-bottom: 100px solid rgba(255,255,255,0.1);
+  }
+
+  /* Слайдер */
   .slider {
     position: relative;
     width: 80%;
     max-width: 800px;
     overflow: hidden;
+    z-index: 1;
   }
 
   .slides {
@@ -38,7 +62,6 @@
   .slide img {
     width: 100%;
     clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
-    /* Можно менять polygon для разных фигур */
     display: block;
     border: 2px solid #fff;
   }
@@ -78,6 +101,12 @@
 </style>
 </head>
 <body>
+
+<!-- Декоративные фигуры -->
+<div class="shape square" style="top: 10%; left: 5%;"></div>
+<div class="shape triangle" style="bottom: 20%; right: 10%;"></div>
+<div class="shape square" style="top: 50%; right: 25%; width: 60px; height: 60px;"></div>
+<div class="shape triangle" style="top: 30%; left: 70%; border-bottom-width: 60px;"></div>
 
 <div class="slider">
   <div class="slides">
