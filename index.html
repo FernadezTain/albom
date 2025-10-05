@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Минималистичный альбом с фигурами</title>
+<title>Современный портфолио-альбом</title>
 <style>
   body {
     margin: 0;
     background-color: #111;
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     color: white;
     display: flex;
     justify-content: center;
@@ -18,16 +18,53 @@
     position: relative;
   }
 
-  /* Геометрические декоративные элементы */
+  /* Слайдер */
+  .slider {
+    position: relative;
+    width: 80%;
+    max-width: 900px;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .slides {
+    display: flex;
+    transition: transform 0.6s ease;
+  }
+
+  .slide {
+    min-width: 100%;
+    position: relative;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  /* Фото с необычной обрезкой */
+  .slide img {
+    width: 100%;
+    clip-path: polygon(5% 0%, 95% 0%, 100% 85%, 0% 100%);
+    display: block;
+    border: 2px solid #fff;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Геометрические фигуры */
   .shape {
     position: absolute;
-    background: rgba(255, 255, 255, 0.1);
     z-index: 0;
+    background: rgba(255, 255, 255, 0.08);
+    transform: rotate(0deg);
   }
 
   .shape.square {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
+  }
+
+  .shape.rectangle {
+    width: 200px;
+    height: 40px;
   }
 
   .shape.triangle {
@@ -35,47 +72,22 @@
     height: 0;
     border-left: 60px solid transparent;
     border-right: 60px solid transparent;
-    border-bottom: 100px solid rgba(255,255,255,0.1);
+    border-bottom: 100px solid rgba(255,255,255,0.08);
   }
 
-  /* Слайдер */
-  .slider {
-    position: relative;
-    width: 80%;
-    max-width: 800px;
-    overflow: hidden;
-    z-index: 1;
-  }
-
-  .slides {
-    display: flex;
-    transition: transform 0.5s ease;
-  }
-
-  .slide {
-    min-width: 100%;
-    box-sizing: border-box;
-    padding: 20px;
-    position: relative;
-  }
-
-  .slide img {
-    width: 100%;
-    clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
-    display: block;
-    border: 2px solid #fff;
-  }
-
+  /* Подписи */
   .caption {
     position: absolute;
-    bottom: 20px;
-    left: 20px;
+    bottom: 25px;
+    left: 25px;
     font-size: 1.2em;
     background: rgba(0,0,0,0.4);
-    padding: 5px 10px;
-    border-radius: 4px;
+    padding: 6px 12px;
+    border-radius: 5px;
+    z-index: 2;
   }
 
+  /* Навигация */
   .nav {
     position: absolute;
     top: 50%;
@@ -83,6 +95,7 @@
     display: flex;
     justify-content: space-between;
     transform: translateY(-50%);
+    z-index: 2;
   }
 
   .nav button {
@@ -102,27 +115,39 @@
 </head>
 <body>
 
-<!-- Декоративные фигуры -->
-<div class="shape square" style="top: 10%; left: 5%;"></div>
-<div class="shape triangle" style="bottom: 20%; right: 10%;"></div>
-<div class="shape square" style="top: 50%; right: 25%; width: 60px; height: 60px;"></div>
-<div class="shape triangle" style="top: 30%; left: 70%; border-bottom-width: 60px;"></div>
-
 <div class="slider">
   <div class="slides">
+
+    <!-- Слайд 1 -->
     <div class="slide">
-      <img src="photo1.png" alt="Фото 1">
+      <img src="photo1.jpg" alt="Фото 1">
       <div class="caption">Подпись 1</div>
+      <div class="shape square" style="top: 10%; left: 5%; transform: rotate(15deg);"></div>
+      <div class="shape rectangle" style="bottom: 15%; right: 10%; transform: rotate(-20deg);"></div>
+      <div class="shape triangle" style="top: 40%; right: 25%;"></div>
     </div>
+
+    <!-- Слайд 2 -->
     <div class="slide">
-      <img src="photo2.png" alt="Фото 2">
+      <img src="photo2.jpg" alt="Фото 2">
       <div class="caption">Подпись 2</div>
+      <div class="shape square" style="top: 20%; right: 10%; transform: rotate(-10deg);"></div>
+      <div class="shape rectangle" style="bottom: 20%; left: 15%; transform: rotate(25deg);"></div>
+      <div class="shape triangle" style="top: 30%; left: 50%;"></div>
     </div>
+
+    <!-- Слайд 3 -->
     <div class="slide">
-      <img src="photo3.png" alt="Фото 3">
+      <img src="photo3.jpg" alt="Фото 3">
       <div class="caption">Подпись 3</div>
+      <div class="shape square" style="top: 15%; left: 20%; transform: rotate(30deg);"></div>
+      <div class="shape rectangle" style="bottom: 25%; right: 20%; transform: rotate(-15deg);"></div>
+      <div class="shape triangle" style="top: 50%; right: 50%;"></div>
     </div>
+
   </div>
+
+  <!-- Навигация -->
   <div class="nav">
     <button id="prev">&#10094;</button>
     <button id="next">&#10095;</button>
