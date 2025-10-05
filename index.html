@@ -3,8 +3,109 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Альбом — Фото 1</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Альбом</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+    :root {
+      --bg: #ffffff;
+      --text: #111;
+      --accent: #007aff;
+      --gray: #888;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      text-align: center;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    header h1 {
+      font-size: 1.4rem;
+      letter-spacing: 0.05em;
+      color: var(--gray);
+      font-weight: 500;
+    }
+
+    .photo-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .photo {
+      max-width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      transition: opacity 0.4s ease, transform 0.3s ease;
+    }
+
+    .photo.hide {
+      opacity: 0;
+      transform: scale(0.98);
+    }
+
+    .caption {
+      font-size: 1rem;
+      color: var(--gray);
+      max-width: 80%;
+      transition: opacity 0.4s ease;
+    }
+
+    .caption.hide {
+      opacity: 0;
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      width: 200px;
+      margin-top: 1rem;
+    }
+
+    .btn {
+      text-decoration: none;
+      font-size: 1.5rem;
+      background: var(--accent);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      transition: background 0.3s;
+      user-select: none;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: #005cd1;
+    }
+
+    .btn.disabled {
+      background: #ccc;
+      pointer-events: none;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
@@ -14,15 +115,57 @@
 
     <main class="photo-section">
       <div class="photo-wrapper">
-        <img src="photo1.png" alt="Фото 1" class="photo" />
-        <p class="caption">Первое фото — начало истории.</p>
+        <img src="photo1.png" alt="Фото 1" class="photo" id="photo">
+        <p class="caption" id="caption">Первое фото — начало истории.</p>
       </div>
     </main>
 
     <div class="nav-buttons">
-      <a class="btn disabled">←</a>
-      <a href="page2.html" class="btn">→</a>
+      <button id="prev" class="btn disabled">←</button>
+      <button id="next" class="btn">→</button>
     </div>
   </div>
+
+  <script>
+    const photos = [
+      { src: 'photo1.png', caption: 'Первое фото — начало истории.' },
+      { src: 'photo2.png', caption: 'Второе фото — ещё один момент из жизни.' },
+      { src: 'photo3.png', caption: 'Последнее фото — в завершение альбома.' }
+    ];
+
+    let current = 0;
+    const photo = document.getElementById('photo');
+    const caption = document.getElementById('caption');
+    const prev = document.getElementById('prev');
+    const next = document.getElementById('next');
+
+    function updatePhoto() {
+      photo.classList.add('hide');
+      caption.classList.add('hide');
+      setTimeout(() => {
+        photo.src = photos[current].src;
+        caption.textContent = photos[current].caption;
+        photo.classList.remove('hide');
+        caption.classList.remove('hide');
+
+        prev.classList.toggle('disabled', current === 0);
+        next.classList.toggle('disabled', current === photos.length - 1);
+      }, 300);
+    }
+
+    prev.addEventListener('click', () => {
+      if (current > 0) {
+        current--;
+        updatePhoto();
+      }
+    });
+
+    next.addEventListener('click', () => {
+      if (current < photos.length - 1) {
+        current++;
+        updatePhoto();
+      }
+    });
+  </script>
 </body>
 </html>
