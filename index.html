@@ -1,171 +1,120 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Альбом</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Минималистичный альбом</title>
+<style>
+  body {
+    margin: 0;
+    background-color: #111;
+    font-family: Arial, sans-serif;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
 
-    :root {
-      --bg: #ffffff;
-      --text: #111;
-      --accent: #007aff;
-      --gray: #888;
-    }
+  .slider {
+    position: relative;
+    width: 80%;
+    max-width: 800px;
+    overflow: hidden;
+  }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+  .slides {
+    display: flex;
+    transition: transform 0.5s ease;
+  }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+  .slide {
+    min-width: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+    position: relative;
+  }
 
-    .container {
-      max-width: 900px;
-      width: 100%;
-      text-align: center;
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2rem;
-    }
+  .slide img {
+    width: 100%;
+    clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+    /* Можно менять polygon для разных фигур */
+    display: block;
+    border: 2px solid #fff;
+  }
 
-    header h1 {
-      font-size: 1.4rem;
-      letter-spacing: 0.05em;
-      color: var(--gray);
-      font-weight: 500;
-    }
+  .caption {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    font-size: 1.2em;
+    background: rgba(0,0,0,0.4);
+    padding: 5px 10px;
+    border-radius: 4px;
+  }
 
-    .photo-wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-    }
+  .nav {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+  }
 
-    .photo {
-      max-width: 100%;
-      border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-      transition: opacity 0.4s ease, transform 0.3s ease;
-    }
+  .nav button {
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+    font-size: 2em;
+    cursor: pointer;
+    padding: 10px 20px;
+    transition: background 0.3s;
+  }
 
-    .photo.hide {
-      opacity: 0;
-      transform: scale(0.98);
-    }
-
-    .caption {
-      font-size: 1rem;
-      color: var(--gray);
-      max-width: 80%;
-      transition: opacity 0.4s ease;
-    }
-
-    .caption.hide {
-      opacity: 0;
-    }
-
-    .nav-buttons {
-      display: flex;
-      justify-content: space-between;
-      width: 200px;
-      margin-top: 1rem;
-    }
-
-    .btn {
-      text-decoration: none;
-      font-size: 1.5rem;
-      background: var(--accent);
-      color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      transition: background 0.3s;
-      user-select: none;
-      cursor: pointer;
-    }
-
-    .btn:hover {
-      background: #005cd1;
-    }
-
-    .btn.disabled {
-      background: #ccc;
-      pointer-events: none;
-    }
-  </style>
+  .nav button:hover {
+    background: rgba(255,255,255,0.5);
+  }
+</style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>Альбом</h1>
-    </header>
 
-    <main class="photo-section">
-      <div class="photo-wrapper">
-        <img src="photo1.png" alt="Фото 1" class="photo" id="photo">
-        <p class="caption" id="caption">Первое фото — начало истории.</p>
-      </div>
-    </main>
-
-    <div class="nav-buttons">
-      <button id="prev" class="btn disabled">←</button>
-      <button id="next" class="btn">→</button>
+<div class="slider">
+  <div class="slides">
+    <div class="slide">
+      <img src="photo1.jpg" alt="Фото 1">
+      <div class="caption">Подпись 1</div>
+    </div>
+    <div class="slide">
+      <img src="photo2.jpg" alt="Фото 2">
+      <div class="caption">Подпись 2</div>
+    </div>
+    <div class="slide">
+      <img src="photo3.jpg" alt="Фото 3">
+      <div class="caption">Подпись 3</div>
     </div>
   </div>
+  <div class="nav">
+    <button id="prev">&#10094;</button>
+    <button id="next">&#10095;</button>
+  </div>
+</div>
 
-  <script>
-    const photos = [
-      { src: 'photo1.png', caption: 'Первое фото — начало истории.' },
-      { src: 'photo2.png', caption: 'Второе фото — ещё один момент из жизни.' },
-      { src: 'photo3.png', caption: 'Последнее фото — в завершение альбома.' }
-    ];
+<script>
+  const slides = document.querySelector('.slides');
+  const slideCount = document.querySelectorAll('.slide').length;
+  let currentIndex = 0;
 
-    let current = 0;
-    const photo = document.getElementById('photo');
-    const caption = document.getElementById('caption');
-    const prev = document.getElementById('prev');
-    const next = document.getElementById('next');
+  document.getElementById('next').addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % slideCount;
+    slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+  });
 
-    function updatePhoto() {
-      photo.classList.add('hide');
-      caption.classList.add('hide');
-      setTimeout(() => {
-        photo.src = photos[current].src;
-        caption.textContent = photos[current].caption;
-        photo.classList.remove('hide');
-        caption.classList.remove('hide');
+  document.getElementById('prev').addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+    slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+  });
+</script>
 
-        prev.classList.toggle('disabled', current === 0);
-        next.classList.toggle('disabled', current === photos.length - 1);
-      }, 300);
-    }
-
-    prev.addEventListener('click', () => {
-      if (current > 0) {
-        current--;
-        updatePhoto();
-      }
-    });
-
-    next.addEventListener('click', () => {
-      if (current < photos.length - 1) {
-        current++;
-        updatePhoto();
-      }
-    });
-  </script>
 </body>
 </html>
